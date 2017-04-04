@@ -8,4 +8,37 @@ services:
     ports:
      - "80:80"
     volumes:
-      - ./mydoctor/www/:/var/www/html
+     - ./mydoctor/www/:/var/www/html
+    links:
+      - mydoctor-mysql
+    environment:
+      DATABASE_HOST: mydoctor-mysql
+      DATABASE_USER: dev
+      DATABASE_PASS: ubuntu
+      DATABASE_NAME: mydoctor
+
+  mydoctor-mysql:
+    image: mysql-phalcon
+    build:
+      context: ./mysql/
+    ports:
+      - "3306:3306"
+    hostname: mydoctor-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: ubuntu
+      MYSQL_DATABASE: mydoctor
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+
+  mydoctor-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mydoctor-mysql
+    ports:
+      - 8181:80
+    environment:
+      PMA_HOST: mydoctor-mysql
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 1234
