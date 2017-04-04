@@ -60,6 +60,9 @@
                 <li>
                     <a href="#">moche</a>
                 </li>
+                <li <?= ($page == 'session' ? 'class="active"' : '') ?>><?= $this->tag->linkTo(['session', '<span class=\'glyphicon glyphicon-log-in\'></span> Login']) ?></li>
+                <li <?= ($page == 'register' ? 'class="active"' : '') ?>><?= $this->tag->linkTo(['register', '<span class=\'glyphicon glyphicon-user\'></span> Register']) ?></li>
+                <li><?= $this->tag->linkTo(['session/logout', '<span class=\'glyphicon glyphicon-log-out\'></span> Logout']) ?></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

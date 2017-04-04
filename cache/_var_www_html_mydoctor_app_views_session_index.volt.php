@@ -2,11 +2,11 @@
     <h1>Login</h1>
 </div>
 
-{{ content() }}
+<?= $this->getContent() ?>
 
-{{ flashSession.output() }}
+<?= $this->flashSession->output() ?>
 
-{{ form("session/login") }}
+<?= $this->tag->form(['session/login']) ?>
     <div class="col-md-6">
         <div class="form-group has-feedback">
           <label for="email">Email</label>
@@ -24,4 +24,4 @@
     <div style="text-align: center">
         <button style="width: 42%" type="submit" class="btn btn-success">Login</button>
     </div>
-{{ endForm() }}
+<?= $this->tag->endform() ?>

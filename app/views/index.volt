@@ -60,6 +60,9 @@
                 <li>
                     <a href="#">moche</a>
                 </li>
+                <li {{ page == 'session' ? 'class="active"' : '' }}>{{ link_to("session", "<span class='glyphicon glyphicon-log-in'></span> Login") }}</li>
+                <li {{ page == 'register' ? 'class="active"' : '' }}>{{ link_to("register", "<span class='glyphicon glyphicon-user'></span> Register") }}</li>
+                <li>{{ link_to("session/logout", "<span class='glyphicon glyphicon-log-out'></span> Logout") }}</li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

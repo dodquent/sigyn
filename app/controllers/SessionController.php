@@ -27,7 +27,7 @@ class SessionController extends ControllerBase
             $email    = $this->request->getPost("email");
             $password = $this->request->getPost("password");
 
-            $user = Users::findFirstByEmail($email);
+            $user = User::findFirstByEmail($email);
             if ($user) {
                 if ($this->security->checkHash($password, $user->password)) {
                     $this->_registerSession($user);
