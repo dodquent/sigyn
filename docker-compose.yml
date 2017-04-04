@@ -1,0 +1,11 @@
+version: '2'
+services:
+
+  mydoctor-apache:
+    image: apache-phalcon
+    build:
+      context: ./mydoctor/
+    ports:
+     - "80:80"
+    volumes:
+      - ./mydoctor/www/:/var/www/html
