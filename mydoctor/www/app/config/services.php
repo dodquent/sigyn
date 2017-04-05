@@ -9,6 +9,9 @@ use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Events\Manager as EventsManager;
+use \Ratchet\Server\IoServer as IoServer;
+use \Ratchet\Http\HttpServer as HttpServer;
+use \Ratchet\WebSocket\WsServer as WsServer;
 
 /**
  * Shared configuration service
@@ -145,5 +148,4 @@ $di->setShared(
         $dispatcher->setEventsManager($eventsManager);
 
         return $dispatcher;
-    }
-);
+    });

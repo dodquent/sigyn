@@ -7,6 +7,10 @@ error_reporting(E_ALL);
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 
+require BASE_PATH . '/vendor/autoload.php';
+
+//require BASE_PATH . '/app/library/Chat.php';
+
 try {
 
     /**

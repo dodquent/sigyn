@@ -34,7 +34,8 @@ class SecurityPlugin extends Plugin
 
         // Private area resources (backend)
         $privateResources = [
-            "home"          => ["index"]
+            "home"          => ["index"],
+            "message"          => ["index"]
         ];
 
         foreach ($privateResources as $resourceName => $actions) {
