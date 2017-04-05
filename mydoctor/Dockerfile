@@ -44,5 +44,6 @@ RUN { \
 	&& a2enconf docker-php
 
 RUN a2enmod rewrite
+RUN usermod -u 1000 www-data
 
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]
