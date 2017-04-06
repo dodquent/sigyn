@@ -5,7 +5,7 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-USE `mydoctor`;
+USE `sigyn`;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (

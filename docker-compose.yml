@@ -1,44 +1,44 @@
 version: '2'
 services:
 
-  mydoctor-apache:
+  sigyn-apache:
     image: apache-phalcon
     build:
-      context: ./mydoctor/
+      context: ./sigyn/
     ports:
      - "80:80"
     volumes:
-     - ./mydoctor/www/:/var/www/html
+     - ./sigyn/www/:/var/www/html
     links:
-      - mydoctor-mysql
+      - sigyn-mysql
     environment:
-      DATABASE_HOST: mydoctor-mysql
+      DATABASE_HOST: sigyn-mysql
       DATABASE_USER: dev
       DATABASE_PASS: ubuntu
-      DATABASE_NAME: mydoctor
+      DATABASE_NAME: sigyn
 
-  mydoctor-mysql:
+  sigyn-mysql:
     image: mysql-phalcon
     build:
       context: ./mysql/
     ports:
       - "3306:3306"
-    hostname: mydoctor-mysql
+    hostname: sigyn-mysql
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: dev
       MYSQL_PASSWORD: ubuntu
-      MYSQL_DATABASE: mydoctor
+      MYSQL_DATABASE: sigyn
     volumes:
       - ./mysql/data:/var/lib/mysql
 
-  mydoctor-phpmyadmin:
+  sigyn-phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
-      - mydoctor-mysql
+      - sigyn-mysql
     ports:
       - 8181:80
     environment:
-      PMA_HOST: mydoctor-mysql
+      PMA_HOST: sigyn-mysql
       MYSQL_USERNAME: root
       MYSQL_ROOT_PASSWORD: 1234
