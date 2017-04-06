@@ -28,6 +28,10 @@ RUN set -xe && curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_V
 	echo "extension=phalcon.so" >> /etc/php/7.0/cli/conf.d/30-phalcon.ini && \
 	cd ../.. && rm -rf v${PHALCON_VERSION}.tar.gz cphalcon-${PHALCON_VERSION}
 
+RUN git clone http://github.com/phalcon/phalcon-devtools.git \
+        && phalcon-devtools/phalcon.sh \
+        && ln -s ./phalcon-devtools/phalcon.php /usr/local/bin/phalcon
+
 RUN { \
 		echo '<FilesMatch \.php$>'; \
 		echo '\tSetHandler application/x-httpd-php'; \
