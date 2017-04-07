@@ -22,15 +22,14 @@ include APP_PATH . '/config/services.php';
  */
 include APP_PATH . '/config/services_cli.php';
 
+
+$config = $di->getConfig();
+
 /**
  * Include Autoloader
  */
 include APP_PATH . '/config/loader.php';
 
-/**
- * Get config service for use in inline setup below
- */
-$config = $di->getConfig();
 
 /**
  * Create a console application

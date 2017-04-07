@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Loader;
+include BASE_PATH . '/vendor/autoload.php';
 
 $loader = new Loader();
 
@@ -9,7 +10,8 @@ $loader = new Loader();
  */
 $loader->registerNamespaces([
     'Sigyn\Models' => APP_PATH . '/common/models/',
-    'Sigyn'        => APP_PATH . '/common/library/',
+    'Sigyn\Library'        => APP_PATH . '/common/library/',
+
 ]);
 
 /**
@@ -22,10 +24,10 @@ $loader->registerClasses([
 
 $loader->registerDirs(
     [
-        $config->application->controllersDir,
-        $config->application->modelsDir,
+        //$config->application->controllersDir,
+        //$config->application->modelsDir,
         $config->application->pluginsDir,
-        $config->application->libraryDir
+        //$config->application->libraryDir
     ]
 );
 
