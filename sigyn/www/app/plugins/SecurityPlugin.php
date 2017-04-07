@@ -43,6 +43,7 @@ class SecurityPlugin extends Plugin
             "register"      => ["index", "create"],
             "session"       => ["index", "login", "logout"],
             "chat"          => ["index"],
+            "account"       => ["forgottenPassword"],
         ];
         foreach ($publicResources as $resourceName => $actions) {
             $acl->addResource(

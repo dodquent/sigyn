@@ -26,7 +26,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        GROS PD
+                        Sigyn
                     </a>
                 </li>
                 <li>{{ link_to("session/logout", "<span class='glyphicon glyphicon-log-out'></span> Logout") }}</li>

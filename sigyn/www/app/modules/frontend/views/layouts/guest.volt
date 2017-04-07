@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     </button>
-                    {{ link_to("session", "Gros PD", 'class':'navbar-brand') }}
+                    {{ link_to("session", "Sigyn", 'class':'navbar-brand') }}
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
