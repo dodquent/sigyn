@@ -21,6 +21,10 @@ RUN apt-get -y update && apt-get install -y \
 
 # Compile specific Phalcon version
 ENV PHALCON_VERSION=3.1.1
+ENV DATABASE_HOST: sigyn-db.cdvjopbzfq6j.eu-west-1.rds.amazonaws.com
+ENV DATABASE_USER: dev
+ENV DATABASE_PASS: sigyn
+ENV DATABASE_NAME: sigyn
 
 RUN set -xe && curl -LO https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.tar.gz && \
 	tar xzf v${PHALCON_VERSION}.tar.gz && cd cphalcon-${PHALCON_VERSION}/build && ./install && \

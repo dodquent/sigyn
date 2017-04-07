@@ -10,36 +10,17 @@ services:
      - "8088:8088"
     volumes:
      - ./sigyn/www/:/var/www/html
-    links:
-      - sigyn-mysql
     environment:
-      DATABASE_HOST: sigyn-mysql
+      DATABASE_HOST: sigyn-db.cdvjopbzfq6j.eu-west-1.rds.amazonaws.com
       DATABASE_USER: dev
-      DATABASE_PASS: ubuntu
+      DATABASE_PASS: sigyn
       DATABASE_NAME: sigyn
-
-  sigyn-mysql:
-    image: mysql-phalcon
-    build:
-      context: ./mysql/
-    ports:
-      - "3306:3306"
-    hostname: sigyn-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: ubuntu
-      MYSQL_DATABASE: sigyn
-    volumes:
-      - ./mysql/data:/var/lib/mysql
 
   sigyn-phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links:
-      - sigyn-mysql
     ports:
       - 8181:80
     environment:
-      PMA_HOST: sigyn-mysql
-      MYSQL_USERNAME: root
-      MYSQL_ROOT_PASSWORD: 1234
+      PMA_HOST: sigyn-db.cdvjopbzfq6j.eu-west-1.rds.amazonaws.com
+      MYSQL_USERNAME: dev
+      MYSQL_ROOT_PASSWORD: sigyn

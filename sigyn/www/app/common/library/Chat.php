@@ -1,6 +1,6 @@
 <?php
 namespace Sigyn\Library;
- 
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 
