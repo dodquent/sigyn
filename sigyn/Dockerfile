@@ -50,4 +50,6 @@ RUN { \
 RUN a2enmod rewrite
 RUN usermod -u 1000 www-data
 
+COPY www/ /var/www/html
+
 CMD ["/usr/sbin/apache2ctl","-DFOREGROUND"]

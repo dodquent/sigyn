@@ -18,24 +18,12 @@ class Chat implements MessageComponentInterface
         $this->clients->attach($conn);
 
         echo "New connection!";
-
-        foreach ($this->clients as $client) {
-            if ($conn !== $client) {
-                // Send connection message to all clients but the current one
-                $client->send("Client {$client->resourceId} connected.");
-            }
-        }
+        $conn->send("you're connected");
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        // Send to all clients but the current one
-        foreach ($this->clients as $client) {
-            if ($from != $client) {
-                $msg = "Client {$client->resourceId} says \"$msg\"";
-                $client->send($msg);
-            }
-        }
+
     }
 
     public function onClose(ConnectionInterface $conn)

@@ -16,7 +16,7 @@ class ChatController extends ControllerBase
         ]);
     }
 
-    public function getMessage()
+    public function saveMessage($msg)
     {
 
     }

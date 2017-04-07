@@ -1,23 +1,33 @@
 <?php
 namespace Sigyn\Modules\Cli\Tasks;
+use \Phalcon\Cli\Task;
+use \Ratchet\Server\IoServer;
+use \Ratchet\Http\HttpServer;
+use \Ratchet\WebSocket\WsServer;
+use \Sigyn\Library\Chat;
 
 
 
-class ChatTask extends \Phalcon\Cli\Task
+class ChatTask extends Task
 {
     public function mainAction()
     {
         $websocketPort = 8088;
 
-        $server = \Ratchet\Server\IoServer::factory(
-            new \Ratchet\Http\HttpServer(
-                new \Ratchet\WebSocket\WsServer(
-                    new \Sigyn\Library\Chat()
+        $server = IoServer::factory(
+            new HttpServer(
+                new WsServer(
+                    new Chat()
                 )
             ),
             $websocketPort
         );
 
         $server->run();
+    }
+
+    public function receiveMessage()
+    {
+
     }
 }

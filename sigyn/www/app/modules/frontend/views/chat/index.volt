@@ -14,10 +14,7 @@
     });
 
     function helloWorldPing() {
-        if (conn.readyState === conn.OPEN) {
-            conn.send('Hello World!');
-            setTimeout(helloWorldPing, 3000);
-        }
+        conn.send('Hello World!');
     }
 
     function addMessage(message) {
