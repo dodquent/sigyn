@@ -2,7 +2,7 @@
 
 namespace Sigyn\Modules\Frontend\Controllers;
 
-use Sigyn\Models\User;
+use Sigyn\Models\Users;
 
 class SessionController extends ControllerBase
 {
@@ -31,7 +31,7 @@ class SessionController extends ControllerBase
             $email    = $this->request->getPost("email");
             $password = $this->request->getPost("password");
 
-            $user = User::findFirstByEmail($email);
+            $user = Users::findFirstByEmail($email);
             if ($user) {
                 if ($this->security->checkHash($password, $user->password)) {
                     $this->_registerSession($user);

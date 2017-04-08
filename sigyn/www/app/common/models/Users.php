@@ -7,7 +7,7 @@ use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
 use Phalcon\Validation\Validator\Uniqueness;
 
-class User extends Model
+class Users extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -34,6 +34,20 @@ class User extends Model
     public $password;
 
     /**
+     *
+     * @var string
+     * @Column(type="string", nullable=false)
+     */
+    public $pro_type;
+
+    /**
+     *
+     * @var string
+     * @Column(type="string", nullable=false)
+     */
+    public $type;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
@@ -46,7 +60,7 @@ class User extends Model
             'email',
             new EmailValidator(
                 [
-                    'model' => $this,
+                    'model'   => $this,
                     'message' => 'Please enter a correct email address',
                 ]
             )
@@ -71,23 +85,15 @@ class User extends Model
     public function initialize()
     {
         $this->setSchema("sigyn");
-    }
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'user';
+        $this->hasMany('id', 'Messages', 'id_pro', ['alias' => 'Messages']);
+        $this->hasMany('id', 'Patients', 'id_pro', ['alias' => 'Patients']);
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return User[]|User
+     * @return Users[]|Users
      */
     public static function find($parameters = null)
     {
@@ -98,11 +104,21 @@ class User extends Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return User
+     * @return Users
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'Users';
     }
 
 }

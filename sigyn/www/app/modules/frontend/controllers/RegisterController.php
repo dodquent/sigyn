@@ -2,7 +2,7 @@
 
 namespace Sigyn\Modules\Frontend\Controllers;
 
-use Sigyn\Models\User;
+use Sigyn\Models\Users;
 
 class RegisterController extends ControllerBase
 {
@@ -14,7 +14,7 @@ class RegisterController extends ControllerBase
     public function createAction()
     {
         if ($this->request->isPost()) {
-            $user = new User();
+            $user = new Users();
 
             $user->email = $this->request->getPost("email");
 

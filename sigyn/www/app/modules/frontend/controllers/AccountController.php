@@ -2,7 +2,8 @@
 
 namespace Sigyn\Modules\Frontend\Controllers;
 
-use Phalcon\Mvc\Url;
+use Sigyn\Models\Users;
+use Sigyn\Models\RecoveryToken;
 
 class AccountController extends ControllerBase
 {
@@ -11,34 +12,35 @@ class AccountController extends ControllerBase
         if ($this->request->isPost())
         {
             $email = strtolower($this->request->getPost("emailRecovery"));
-            if (empty($email))
-            {
+            if (empty($email)) {
                 $this->flash->error("Please enter a valid email address");
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "session",
-                        "action"     => "index",
-                    ]
-                );
+                return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
             }
-            $token = bin2hex(openssl_random_pseudo_bytes(16));
-            $link = $this->request->getServerName() . "/account/validToken/$token";
+
+            $user = Users::findFirst(["email = :email:", "bind" => ["email" => $email]]);
+            if (!$user) {
+                $this->flash->error("This account does not exist.");
+                return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
+            }
+
+            $newToken = new RecoveryToken();
+            $link = $this->request->getServerName() . "/account/validToken/" . $newToken->id;
 
             // ENVOI DU MAIL
             $mail = $this->mailer;
-            $mail->Subject = "Test";
+            $mail->Subject = "Sigyn - Password change";
             $content = file_get_contents(APP_PATH . '/modules/frontend/mail/template_forgottenPassword.html');
             $mail->Body = str_replace('{link}', $link, $content);
             $mail->AddAddress($email);
 
             if(!$mail->Send()) {
                 $this->flash->error("Mailer Error: " . $mail->ErrorInfo);
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "session",
-                        "action"     => "index",
-                    ]
-                );
+                return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
+            }
+            
+            if ($newToken->save() === false) {
+                $this->flash->error("An error has occured. Please try again later.");
+                return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
             }
             
             $this->flashSession->notice("An email as been sent to $email");
@@ -49,6 +51,13 @@ class AccountController extends ControllerBase
     public function validTokenAction($token)
     {
         var_dump($token);die;
-    }   
+    }
+
+    public function mailVerificationAction()
+    {
+        /*
+        TODO
+        */
+    }
 
 }
