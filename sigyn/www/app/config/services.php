@@ -4,6 +4,7 @@ use Phalcon\Loader;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 
+include BASE_PATH . '/vendor/autoload.php';
 
 /**
  * Shared configuration service

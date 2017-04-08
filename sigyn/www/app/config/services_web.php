@@ -89,3 +89,22 @@ $di->setShared(
         return $dispatcher;
     }
 );
+
+/**
+ * Email service
+ */
+$di->set('mailer', function () {
+    $mailer = new PHPMailer(); // create a new object
+    $mailer->CharSet = "UTF-8";
+    $mailer->isSMTP();
+    $mailer->Host = 'smtp.gmail.com';
+    $mailer->Port = 587;
+    $mailer->SMTPSecure = 'tls';
+    $mailer->SMTPAuth = true;
+    $mailer->Username = "contact.sigyn@gmail.com";
+    $mailer->Password = "nutricloud";
+    $mailer->IsHTML(true);
+    $mailer->SetFrom("contact.sigyn@gmail.com");
+
+    return $mailer;
+});
