@@ -23,11 +23,19 @@ class RecoveryToken extends \Phalcon\Mvc\Model
     public $expiration_date;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=10, nullable=false)
+     */
+    public $user_id;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
         $this->setSchema("sigyn");
+        $this->belongsTo('user_id', 'Sigyn\Models\Users', 'id', ['alias' => 'Users']);
     }
 
     /**
@@ -62,14 +70,15 @@ class RecoveryToken extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    /**
-     * Exécuté avant chaque insertion. Création d'un ID unique sur l'objet inséré.
+     /**
+     * Exécuté avant chaque save.
      * 
      * @return void
      */
-    public function beforeValidationOnCreate() {
+    public function beforeSave()
+    {
         $this->id = bin2hex(openssl_random_pseudo_bytes(16));
-        $this->expiration_date = time();
+        $this->expiration_date = time() + 900;
     }
 
 }

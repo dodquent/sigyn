@@ -85,8 +85,17 @@ class Users extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("sigyn");
-        $this->hasMany('id', 'Messages', 'id_pro', ['alias' => 'Messages']);
-        $this->hasMany('id', 'Patients', 'id_pro', ['alias' => 'Patients']);
+        $this->hasMany('id', 'Sigyn\Models\RecoveryToken', 'user_id', ['alias' => 'RecoveryToken']);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'Users';
     }
 
     /**
@@ -109,16 +118,6 @@ class Users extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'Users';
     }
 
 }
