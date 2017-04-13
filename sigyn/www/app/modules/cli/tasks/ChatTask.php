@@ -25,9 +25,4 @@ class ChatTask extends Task
 
         $server->run();
     }
-
-    public function receiveMessage()
-    {
-
-    }
 }

@@ -1,10 +1,8 @@
 <?php
 
 namespace Sigyn\Models;
-use Phalcon\Validation;
-use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
 
-class Users extends \Phalcon\Mvc\Model
+class Messages extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -18,53 +16,31 @@ class Users extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=255, nullable=true)
+     * @var integer
+     * @Column(type="integer", length=10, nullable=false)
      */
-    public $email;
+    public $id_sender;
 
     /**
      *
-     * @var string
-     * @Column(type="string", length=255, nullable=true)
+     * @var integer
+     * @Column(type="integer", length=10, nullable=false)
      */
-    public $password;
-
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $pro_type;
+    public $id_receiver;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $type;
+    public $test;
 
     /**
-     * Validations and business logic
      *
-     * @return boolean
+     * @var string
+     * @Column(type="string", nullable=false)
      */
-    public function validation()
-    {
-        $validator = new Validation();
-
-        $validator->add(
-            'email',
-            new EmailValidator(
-                [
-                    'model'   => $this,
-                    'message' => 'Please enter a correct email address',
-                ]
-            )
-        );
-
-        return $this->validate($validator);
-    }
+    public $date;
 
     /**
      * Initialize method for model.
@@ -72,9 +48,13 @@ class Users extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("sigyn");
-        $this->hasMany('id', 'Messages', 'id_receiver', ['alias' => 'Messages']);
-        $this->hasMany('id', 'Messages', 'id_sender', ['alias' => 'Messages']);
-        $this->hasMany('id', 'RecoveryToken', 'user_id', ['alias' => 'RecoveryToken']);
+        $this->belongsTo('id_receiver', '\Sigyn\Models\Users', 'id', ['alias' => 'Users']);
+        $this->belongsTo('id_sender', '\Sigyn\Models\Users', 'id', ['alias' => 'Users']);
+    }
+
+    public function beforeValidationOnCreate() 
+    {
+        $this->date = date("Y-m-d H:i:s");
     }
 
     /**
@@ -84,14 +64,14 @@ class Users extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'Users';
+        return 'Messages';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users[]|Users
+     * @return Messages[]|Messages
      */
     public static function find($parameters = null)
     {
@@ -102,7 +82,7 @@ class Users extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Users
+     * @return Messages
      */
     public static function findFirst($parameters = null)
     {
