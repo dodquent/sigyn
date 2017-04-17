@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace Sigyn\Models;
 
 class Messages extends \Phalcon\Mvc\Model
