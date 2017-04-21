@@ -20,7 +20,7 @@
         <input required name="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Please confirm your password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
     </div>
-    <div style="text-align: center">
+    <div align="center">
         <button style="width: 42%" type="submit" class="btn btn-success">CONFIRM</button>
     </div>
 {{ endForm() }}

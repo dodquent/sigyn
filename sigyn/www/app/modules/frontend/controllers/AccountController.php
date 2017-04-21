@@ -56,8 +56,9 @@ class AccountController extends ControllerBase
 
 
 
-    public function passwordChangeAction(string $id)
+    public function passwordChangeAction(string $id = null)
     {
+        //on POST
         if ($this->request->isPost()) {
             $token = $this->request->getPost("token");
             $user = Users::findFirstById($id);
@@ -83,12 +84,12 @@ class AccountController extends ControllerBase
             return $this->response->redirect("index");
         }
 
-        //GET
+        //on GET
         $token = RecoveryToken::findFirstById($id);
         if (!$token) {
             return $this->dispatcher->forward(["controller" => "errors", "action" => "show404",]);
         }
-
+        //check token time
         if (time() > $token->expiration_date) {
             $this->flash->error("Your link has expired.");
             return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
