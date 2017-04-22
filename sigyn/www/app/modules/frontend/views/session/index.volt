@@ -21,10 +21,13 @@
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
     </div>
-    <div style="text-align: center">
+    <div align="center">
         <button style="width: 42%" type="submit" class="btn btn-success">Login</button>
     </div>
-    <a href="#" data-toggle="modal" data-target="#modalPassword">Forgotten password ?</a>
+    <hr>
+    <div align="center">
+        <a href="#" data-toggle="modal" data-target="#modalPassword">Forgotten password ?</a>
+    </div>
 {{ endForm() }}
 
 

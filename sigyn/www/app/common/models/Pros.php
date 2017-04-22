@@ -1,8 +1,10 @@
 <?php
 namespace Sigyn\Models;
 
+use Phalcon\Mvc\Model;
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\Uniqueness;
 
 class Pros extends \Phalcon\Mvc\Model
 {
@@ -42,7 +44,6 @@ class Pros extends \Phalcon\Mvc\Model
      *
      * @return boolean
      */
-
     public function validation()
     {
         $validator = new Validation();
@@ -53,6 +54,16 @@ class Pros extends \Phalcon\Mvc\Model
                 [
                     'model'   => $this,
                     'message' => 'Please enter a correct email address',
+                ]
+            )
+        );
+
+        $validator->add(
+            'email',
+            new Uniqueness(
+                [
+                    'model' => $this,
+                    'message' => 'This account already exists.',
                 ]
             )
         );
