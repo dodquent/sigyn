@@ -2,7 +2,7 @@
 
 namespace Sigyn\Modules\Frontend\Controllers;
 
-use Sigyn\Models\Users;
+use Sigyn\Models\Pros;
 use Sigyn\Models\RecoveryToken;
 
 class AccountController extends ControllerBase
@@ -17,7 +17,7 @@ class AccountController extends ControllerBase
                 return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
             }
 
-            $user = Users::findFirst(["email = :email:", "bind" => ["email" => $email]]);
+            $user = Pros::findFirst(["email = :email:", "bind" => ["email" => $email]]);
             if (!$user) {
                 $this->flash->error("This account does not exist.");
                 return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);

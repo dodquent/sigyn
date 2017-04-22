@@ -1,8 +1,10 @@
 <?php
-
 namespace Sigyn\Models;
 
-class Messages extends \Phalcon\Mvc\Model
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email as EmailValidator;
+
+class Pros extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -16,38 +18,47 @@ class Messages extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=10, nullable=false)
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $id_pro;
+    public $email;
 
     /**
      *
-     * @var integer
-     * @Column(type="integer", length=10, nullable=false)
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
      */
-    public $id_patient;
+    public $password;
 
     /**
      *
      * @var string
      * @Column(type="string", nullable=false)
      */
-    public $text;
+    public $pro_type;
 
     /**
+     * Validations and business logic
      *
-     * @var integer
-     * @Column(type="integer", length=1, nullable=false)
+     * @return boolean
      */
-    public $is_pro;
 
-    /**
-     *
-     * @var string
-     * @Column(type="string", nullable=false)
-     */
-    public $date;
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new EmailValidator(
+                [
+                    'model'   => $this,
+                    'message' => 'Please enter a correct email address',
+                ]
+            )
+        );
+
+        return $this->validate($validator);
+    }
 
     /**
      * Initialize method for model.
@@ -55,8 +66,9 @@ class Messages extends \Phalcon\Mvc\Model
     public function initialize()
     {
         $this->setSchema("sigyn");
-        $this->belongsTo('id_patient', '\Patients', 'id', ['alias' => 'Patients']);
-        $this->belongsTo('id_pro', '\Pros', 'id', ['alias' => 'Pros']);
+        $this->hasMany('id', 'Messages', 'id_pro', ['alias' => 'Messages']);
+        $this->hasMany('id', 'Patients', 'pro_id', ['alias' => 'Patients']);
+        $this->hasMany('id', 'RecoveryToken', 'user_id', ['alias' => 'RecoveryToken']);
     }
 
     /**
@@ -66,14 +78,14 @@ class Messages extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'Messages';
+        return 'Pros';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Messages[]|Messages
+     * @return Pros[]|Pros
      */
     public static function find($parameters = null)
     {
@@ -84,7 +96,7 @@ class Messages extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return Messages
+     * @return Pros
      */
     public static function findFirst($parameters = null)
     {

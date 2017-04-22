@@ -1,7 +1,7 @@
 <?php
 namespace Sigyn\Modules\Frontend\Controllers;
 use Sigyn\Models\Messages;
-use Sigyn\Models\Users;
+use Sigyn\Models\Pros;
 
 class ChatController extends ControllerBase
 {
@@ -9,7 +9,6 @@ class ChatController extends ControllerBase
     {
         $websocketPort = 8088;
         $httpHost = $this->request->getServer('HTTP_HOST');
-        $patientList = Users::find("type = 'patient'");
 
         // You may need to change the domain name and host
         // port depending upon the system.
@@ -24,13 +23,13 @@ class ChatController extends ControllerBase
 
     public function sendMessageAction()
     {
-        $user = $this->session->get("auth");
+        $pro = $this->session->get("auth");
         $message = new Messages();
         var_dump($message);
         die();
 
         $message->test = $this->request->getPost("message");
-        $message->id_sender = $user["id"];
+        $message->id_sender = $pro["id"];
         $message->id_receiver = $this->request->getPost("receiver");
         $is_pro = $message->users->type;
         if ($message->save() === false) {
