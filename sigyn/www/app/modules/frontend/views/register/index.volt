@@ -35,13 +35,3 @@
         <button style="width: 42%" type="submit" class="btn btn-success">Create !</button>
     </div>
 {{ endForm() }}
-
-<script>
-    var listType = document.getElementById('listType');
-    var pro = document.getElementById('pro');
-    var patient = document.getElementById('patient');
-
-    pro.addEventListener('click', (e) => { listType.classList.remove('hide'); });
-    patient.addEventListener('click', (e) => { listType.classList.add("hide"); });
-    
-</script>

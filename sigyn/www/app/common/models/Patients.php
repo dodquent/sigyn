@@ -1,8 +1,11 @@
 <?php
+
 namespace Sigyn\Models;
 
+use Phalcon\Mvc\Model;
 use Phalcon\Validation;
-use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Validation\Validator\Uniqueness;
 
 class Patients extends \Phalcon\Mvc\Model
 {
@@ -39,6 +42,13 @@ class Patients extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     * @Column(type="string", length=255, nullable=true)
+     */
+    public $password;
+
+    /**
+     *
      * @var integer
      * @Column(type="integer", length=10, nullable=false)
      */
@@ -63,6 +73,16 @@ class Patients extends \Phalcon\Mvc\Model
             )
         );
 
+        $validator->add(
+            'email',
+            new Uniqueness(
+                [
+                    'model' => $this,
+                    'message' => 'This account already exists.',
+                ]
+            )
+        );
+
         return $this->validate($validator);
     }
 
@@ -73,7 +93,7 @@ class Patients extends \Phalcon\Mvc\Model
     {
         $this->setSchema("sigyn");
         $this->hasMany('id', 'Messages', 'id_patient', ['alias' => 'Messages']);
-        $this->belongsTo('pro_id', '\Pros', 'id', ['alias' => 'Pros']);
+        $this->belongsTo('pro_id', 'Pros', 'id', ['alias' => 'Pros']);
     }
 
     /**

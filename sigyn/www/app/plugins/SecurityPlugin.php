@@ -28,7 +28,8 @@ class SecurityPlugin extends Plugin
         // Private area resources (backend)
         $privateResources = [
             "home"          => ["index"],
-            "message"          => ["index"]
+            "message"       => ["index"],
+            "patients"      => ["index", "create"]
         ];
         foreach ($privateResources as $resourceName => $actions) {
             $acl->addResource(
@@ -44,6 +45,7 @@ class SecurityPlugin extends Plugin
             "session"       => ["index", "login", "logout"],
             "chat"          => ["index"],
             "account"       => ["forgottenPassword"],
+            "patients"      => ["patientPassword"],
         ];
         foreach ($publicResources as $resourceName => $actions) {
             $acl->addResource(

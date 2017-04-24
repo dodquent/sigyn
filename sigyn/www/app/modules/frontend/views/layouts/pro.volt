@@ -8,6 +8,7 @@
     <title>Sigyn</title>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom CSS -->
     <link href="/css/sidebar.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,11 +25,8 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Sigyn
-                    </a>
-                </li>
+                <li class="sidebar-brand">{{ link_to("home", "<i class='fa fa-home' aria-hidden='true'></i> Home") }}</li>
+                <li>{{ link_to("patients", "<i class='fa fa-users' aria-hidden='true'></i> Patients") }}</li>
                 <li>{{ link_to("session/logout", "<span class='glyphicon glyphicon-log-out'></span> Logout") }}</li>
             </ul>
         </div>

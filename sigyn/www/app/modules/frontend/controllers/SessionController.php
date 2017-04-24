@@ -9,9 +9,9 @@ class SessionController extends ControllerBase
 
     public function indexAction()
     {
-        if ($this->session->get("auth")) {
-            return $this->response->redirect("home");
-        }
+        // if ($this->session->get("auth")) {
+        //     return $this->response->redirect("home");
+        // }
     }
 
     private function _registerSession($pro)
