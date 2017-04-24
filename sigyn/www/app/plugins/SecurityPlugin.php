@@ -44,7 +44,7 @@ class SecurityPlugin extends Plugin
             "register"      => ["index", "create"],
             "session"       => ["index", "login", "logout"],
             "chat"          => ["index"],
-            "account"       => ["forgottenPassword"],
+            "account"       => ["forgottenPassword", "mailVerification", "passwordChange"],
             "patients"      => ["patientPassword"],
         ];
         foreach ($publicResources as $resourceName => $actions) {
@@ -59,7 +59,7 @@ class SecurityPlugin extends Plugin
                 $acl->allow(
                     $role->getName(),
                     $resource,
-                    "*"
+                    $actions
                 );
             }
         }
