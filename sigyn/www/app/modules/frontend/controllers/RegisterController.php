@@ -9,6 +9,9 @@ class RegisterController extends ControllerBase
 
     public function indexAction()
     {
+        if ($this->session->get("auth")) {
+            return $this->response->redirect("home");
+        }
     }
 
     public function createAction()

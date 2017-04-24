@@ -87,7 +87,7 @@ class AccountController extends ControllerBase
         //on GET
         $token = RecoveryToken::findFirstById($id);
         if (!$token) {
-            return $this->dispatcher->forward(["controller" => "errors", "action" => "show404",]);
+            return $this->dispatcher->forward(["controller" => "errors", "action" => "show404"]);
         }
         //check token time
         if (time() > $token->expiration_date) {
@@ -100,11 +100,21 @@ class AccountController extends ControllerBase
 
 
 
-    public function mailVerificationAction()
+    public function mailVerificationAction(int $id)
     {
-        /*
-        TODO
-        */
+        $pro = Pros::findFirstById($id);
+        if (!$pro) {
+            return $this->dispatcher->forward(["controller" => "errors", "action" => "show404"]);
+        }
+
+        $pro->confirmed = 1;
+
+        if ($pro->save() === false) {
+            $this->flash->error("An error occured. Please try again later.");
+            return $this->dispatcher->forward(["controller" => "session", "action" => "index",]);
+        }
+        $this->flashSession->success("Your account is confirmed. You can now login.");
+        return $this->response->redirect("index");
     }
 
 }

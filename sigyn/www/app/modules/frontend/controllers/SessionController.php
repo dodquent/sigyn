@@ -9,6 +9,9 @@ class SessionController extends ControllerBase
 
     public function indexAction()
     {
+        if ($this->session->get("auth")) {
+            return $this->response->redirect("home");
+        }
     }
 
     private function _registerSession($pro)
@@ -33,16 +36,20 @@ class SessionController extends ControllerBase
 
             $pro = Pros::findFirstByEmail($email);
             if ($pro) {
-                if ($this->security->checkHash($password, $pro->password)) {
-                    $this->_registerSession($pro);
-                    $this->flashSession->success("Welcome !");
-                    return $this->response->redirect("home");
+                if ($pro->confirmed == 1) {
+                    if ($this->security->checkHash($password, $pro->password)) {
+                        $this->_registerSession($pro);
+                        $this->flashSession->success("Welcome !");
+                        return $this->response->redirect("home");
+                    }
+                    $this->flash->error("Wrong email/password");
+                } else {
+                    $this->flash->error("You need to confirm your account. Please check your emails.");
                 }
             } else {
                 // To protect against timing attacks. Regardless of whether a pro exists or not, the script will take roughly the same amount as it will always be computing a hash.
                 $this->security->hash(rand());
             }
-            $this->flash->error("Wrong email/password");
         }
 
         if ($this->session->get("auth")) {

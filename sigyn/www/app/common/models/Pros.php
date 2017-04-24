@@ -40,6 +40,13 @@ class Pros extends \Phalcon\Mvc\Model
     public $pro_type;
 
     /**
+     *
+     * @var integer
+     * @Column(type="integer", length=1, nullable=false)
+     */
+    public $confirmed;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
