@@ -7,13 +7,6 @@ use Sigyn\Models\Pros;
 class SessionController extends ControllerBase
 {
 
-    public function indexAction()
-    {
-        // if ($this->session->get("auth")) {
-        //     return $this->response->redirect("home");
-        // }
-    }
-
     private function _registerSession($pro)
     {
         $this->session->set(
@@ -23,6 +16,13 @@ class SessionController extends ControllerBase
                "email" => $pro->email,
            ]
         );
+    }
+
+    /**
+    * Display login page
+    */
+    public function indexAction()
+    {
     }
 
     /**
