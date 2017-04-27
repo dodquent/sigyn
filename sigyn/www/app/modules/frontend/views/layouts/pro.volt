@@ -27,6 +27,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">{{ link_to("home", "<i class='fa fa-home' aria-hidden='true'></i> Home") }}</li>
                 <li>{{ link_to("patients", "<i class='fa fa-users' aria-hidden='true'></i> Patients") }}</li>
+                <li>{{ link_to("chat", "<i class='fa fa-envelope' aria-hidden='true'></i> Messages")}}</li>
                 <li>{{ link_to("session/logout", "<span class='glyphicon glyphicon-log-out'></span> Logout") }}</li>
             </ul>
         </div>

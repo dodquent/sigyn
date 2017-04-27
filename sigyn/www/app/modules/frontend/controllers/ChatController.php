@@ -2,6 +2,7 @@
 namespace Sigyn\Modules\Frontend\Controllers;
 use Sigyn\Models\Messages;
 use Sigyn\Models\Pros;
+use Sigyn\Models\Patients;
 
 class ChatController extends ControllerBase
 {
@@ -9,13 +10,17 @@ class ChatController extends ControllerBase
     {
         $websocketPort = 8088;
         $httpHost = $this->request->getServer('HTTP_HOST');
-
+        
+        $pro_id = $this->session->get("auth")['id'];
+        $patientList = Patients::findByProId($pro_id);
+        $messages = Messages::findByIdPro($pro_id);
         // You may need to change the domain name and host
         // port depending upon the system.
         $this->view->setVars([
             'HTTP_HOST'      => $httpHost,
             'WEBSOCKET_PORT' => $websocketPort,
             'PATIENTS'       => $patientList,
+            'MESSAGES'       => $messages,
         ]);
 
         $this->assets->addJs("js/chat.js");
