@@ -1,6 +1,0 @@
-{
-    "require": {
-        "cboden/ratchet": "0.4.x-dev",
-        "phpmailer/phpmailer": "^5.2"
-    }
-}
