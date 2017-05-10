@@ -1,0 +1,45 @@
+service: users
+
+provider:
+  name: aws
+  runtime: python3.6
+  stage: dev
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+  region: eu-west-1
+  memorySize: 512
+
+functions:
+  hello:
+    handler: handler.createUser
+    events:
+      - http:
+          path: users/create
+          method: post
+
+
+resources:
+ Resources:
+   usersTable:
+     Type: AWS::DynamoDB::Table
+     Properties:
+       AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+       KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+       ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+       TableName: ${self:provider.environment.DYNAMODB_TABLE}
