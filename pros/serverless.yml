@@ -1,11 +1,12 @@
-service: users
+service: pros
 
 provider:
   name: aws
   runtime: python3.6
-  stage: dev
+  stage: production
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    API_URL: "https://api.sigyn.io/"
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -20,11 +21,17 @@ provider:
   memorySize: 512
 
 functions:
-  hello:
-    handler: handler.createUser
+  pros:
+    handler: handler.createPro
     events:
       - http:
-          path: users/create
+          path: /
+          method: post
+  createPatient:
+    handler: handler.createPatient
+    events:
+      - http:
+          path: /createPatient
           method: post
 
 
