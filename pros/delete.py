@@ -1,13 +1,12 @@
 import os
 import json
-from tools import decimalencoder
 import boto3
 dynamodb = boto3.resource('dynamodb')
 
-def get(event, context):
+def delete(event, context):
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
-    result = table.get_item(
+    table.delete_item(
         Key={
             'email': event['pathParameters']['email']
         }
@@ -15,8 +14,7 @@ def get(event, context):
 
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'], cls=decimalencoder.DecimalEncoder)
+        "body": json.dumps({"ok": "ok"})
     }
 
     return response
-

@@ -31,8 +31,14 @@ functions:
     handler: get.get
     events:
       - http:
-          path: /
+          path: /{email}
           method: get
+  delete:
+    handler: delete.delete
+    events:
+      - http:
+          path: /{email}
+          method: delete
 
 resources:
  Resources:
