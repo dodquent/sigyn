@@ -22,18 +22,11 @@ provider:
 
 functions:
   pros:
-    handler: handler.createPro
+    handler: create.create
     events:
       - http:
           path: /
           method: post
-  createPatient:
-    handler: handler.createPatient
-    events:
-      - http:
-          path: /createPatient
-          method: post
-
 
 resources:
  Resources:
@@ -41,10 +34,10 @@ resources:
      Type: AWS::DynamoDB::Table
      Properties:
        AttributeDefinitions:
-        - AttributeName: name
+        - AttributeName: email
           AttributeType: S
        KeySchema:
-        - AttributeName: name
+        - AttributeName: email
           KeyType: HASH
        ProvisionedThroughput:
         ReadCapacityUnits: 1
