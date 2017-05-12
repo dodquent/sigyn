@@ -21,12 +21,18 @@ provider:
   memorySize: 512
 
 functions:
-  pros:
+  create:
     handler: create.create
     events:
       - http:
           path: /
           method: post
+  get:
+    handler: get.get
+    events:
+      - http:
+          path: /
+          method: get
 
 resources:
  Resources:
