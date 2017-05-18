@@ -1,9 +1,8 @@
 import json
-import time
-import logging
 import os
+import time
+import uuid
 
-from todos import decimalencoder
 import boto3
 dynamodb = boto3.resource('dynamodb')
 
@@ -12,8 +11,17 @@ def update(event, context):
     
     timestamp = int(time.time() * 1000)
 
+    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
+
+    if 'email' not in data or 'name' not in data or 'password' not in data or 'type' not in data:
+        response = {
+            "statusCode": 400,
+            "body": "Missing parameters"
+        }
+        return response
+
     item = {
-        'id': event['pathParameters']['id']
+        'id': event['pathParameters']['id'],
         'email': data['email'],
         'name': data['name'],
         'password': data['password'],
@@ -27,3 +35,5 @@ def update(event, context):
         "statusCode": 200,
         "body": json.dumps(item)
     }
+
+    return response
