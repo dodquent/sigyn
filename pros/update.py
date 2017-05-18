@@ -1,19 +1,19 @@
-import os
 import json
+import time
+import logging
+import os
+
+from todos import decimalencoder
 import boto3
 dynamodb = boto3.resource('dynamodb')
- 
-def delete(event, context):
-    table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
-    table.delete_item(
-        Key={
-            'email': event['pathParameters']['id']
-        }
-    )
+def update(event, context):
+    data = json.loads(event['body'])
+    
+    timestamp = int(time.time() * 1000)
 
     item = {
-        'id': str(uuid.uuid1())
+        'id': event['pathParameters']['id']
         'email': data['email'],
         'name': data['name'],
         'password': data['password'],
@@ -27,5 +27,3 @@ def delete(event, context):
         "statusCode": 200,
         "body": json.dumps(item)
     }
-
-    return response

@@ -1,7 +1,7 @@
 import json
-import logging
 import os
 import time
+import uuid
 
 import boto3
 dynamodb = boto3.resource('dynamodb')
@@ -13,7 +13,15 @@ def create(event, context):
 
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
+    if 'email' not in data or 'name' not in data or 'password' not in data or 'type' not in data:
+        response = {
+            "statusCode": 400,
+            "body": "Missing parameters"
+        }
+        return response
+
     item = {
+        'id': str(uuid.uuid1()),
         'email': data['email'],
         'name': data['name'],
         'password': data['password'],

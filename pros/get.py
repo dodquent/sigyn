@@ -9,7 +9,7 @@ def get(event, context):
 
     result = table.get_item(
         Key={
-            'email': event['pathParameters']['email']
+            'id': event['pathParameters']['id']
         }
     )
 
