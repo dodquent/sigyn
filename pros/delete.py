@@ -8,24 +8,13 @@ def delete(event, context):
 
     table.delete_item(
         Key={
-            'email': event['pathParameters']['id']
+            'id': event['pathParameters']['id']
         }
     )
 
-    item = {
-        'id': str(uuid.uuid1())
-        'email': data['email'],
-        'name': data['name'],
-        'password': data['password'],
-        'type': data['type'],
-        'createdAt': timestamp
-    }
-
-    table.put_item(Item=item)
-
     response = {
         "statusCode": 200,
-        "body": json.dumps(item)
+        "body": "User deleted"
     }
 
     return response
