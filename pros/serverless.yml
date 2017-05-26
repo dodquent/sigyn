@@ -21,6 +21,12 @@ provider:
   memorySize: 512
 
 functions:
+  login:
+    handler: login.login
+    events:
+      - http:
+          path: /login
+          method: post
   create:
     handler: create.create
     events:
@@ -52,10 +58,10 @@ resources:
      Type: AWS::DynamoDB::Table
      Properties:
        AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: email
           AttributeType: S
        KeySchema:
-        - AttributeName: id
+        - AttributeName: email
           KeyType: HASH
        ProvisionedThroughput:
         ReadCapacityUnits: 1

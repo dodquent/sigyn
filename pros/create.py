@@ -21,7 +21,6 @@ def create(event, context):
         return response
 
     item = {
-        'id': str(uuid.uuid1()),
         'email': data['email'],
         'name': data['name'],
         'password': data['password'],
