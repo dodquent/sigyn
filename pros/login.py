@@ -2,7 +2,7 @@ import os
 import json 
 import boto3
 dynamodb = boto3.resource('dynamodb')
-
+ 
 def login(event, context):
     data = json.loads(event['body'])
     users = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
