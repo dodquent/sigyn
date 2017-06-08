@@ -4,6 +4,7 @@ provider:
   name: aws
   runtime: python3.6
   stage: production
+  timeout: 20
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     API_URL: "https://api.sigyn.io/"
@@ -33,6 +34,7 @@ functions:
       - http:
           path: /
           method: post
+          timeout: 20
   get:
     handler: get.get
     events:

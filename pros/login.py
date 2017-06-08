@@ -3,7 +3,7 @@ import json
 import boto3
 dynamodb = boto3.resource('dynamodb')
  
-def login(event, context): 
+def login(event, context):
     data = json.loads(event['body'])
     users = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
@@ -30,11 +30,3 @@ def login(event, context):
     }
 
     return response
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """
