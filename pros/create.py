@@ -4,6 +4,7 @@ import time
 import uuid
 
 import boto3
+from botocore.exceptions import ClientError
 cognito = boto3.client('cognito-idp', region_name='eu-west-1')
 
 def create(event, context):
@@ -16,17 +17,20 @@ def create(event, context):
         }
         return response
 
-    res = cognito.admin_create_user(
-        UserPoolId='eu-west-1_QrzGaubhy',
-        Username=data['name'],
-        UserAttributes=[
-            {
-                'Name': 'email',
-                'Value': data['email']
-            }
-        ]
-    )
-
+    try:
+        res = cognito.sign_up(
+            ClientId='4l0luscskuf56rqkeh7er7lje6',
+            Username=data['name'],
+            Password=data['password'],
+            UserAttributes=[
+                {
+                    'Name': 'email',
+                    'Value': data['email']
+                }
+            ]
+        )
+    except Exception as e:
+        res = str(e)
     response = {
         "statusCode": 200,
         "body": json.dumps(res)

@@ -53,6 +53,13 @@ functions:
       - http:
           path: /{id}
           method: put
+          
+  confirm:
+    handler: confirm.confirm
+    events:
+      - http:
+          path: /confirm/{tmppassword}
+          method: get
 
 resources:
  Resources:
