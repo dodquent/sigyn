@@ -8,6 +8,7 @@ provider:
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     API_URL: "https://api.sigyn.io/"
+    COGNITO_ID: "4l0luscskuf56rqkeh7er7lje6"
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -58,8 +59,8 @@ functions:
     handler: confirm.confirm
     events:
       - http:
-          path: /confirm/{tmppassword}
-          method: get
+          path: /confirm
+          method: post
 
 resources:
  Resources:
