@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "amazon-cognito-identity-js-node": "0.0.3"
+  }
+}

@@ -1,0 +1,16 @@
+service: login
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: production
+  timeout: 20
+  region: eu-west-1
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    API_URL: "https://api.sigyn.io/"
+    COGNITO_ID: "4l0luscskuf56rqkeh7er7lje6"
+
+functions:
+  login:
+    handler: login.login
