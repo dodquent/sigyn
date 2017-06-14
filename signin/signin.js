@@ -1,7 +1,7 @@
 'use strict';
 var AWSCognito = require('amazon-cognito-identity-js-node');
 
-module.exports.login = (event, context, callback) => {
+module.exports.signin = (event, context, callback) => {
 
 	var authenticationData = {
 		Username: 'thomas',

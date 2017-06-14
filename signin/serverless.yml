@@ -1,4 +1,4 @@
-service: login
+service: signin
 
 provider:
   name: aws
@@ -12,5 +12,5 @@ provider:
     COGNITO_ID: "4l0luscskuf56rqkeh7er7lje6"
 
 functions:
-  login:
-    handler: login.login
+  signin:
+    handler: signin.signin
