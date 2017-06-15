@@ -6,29 +6,12 @@ provider:
   stage: production
   timeout: 20
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     API_URL: "https://api.sigyn.io/"
     COGNITO_ID: "4l0luscskuf56rqkeh7er7lje6"
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
   region: eu-west-1
   memorySize: 512
 
 functions:
-  login:
-    handler: login.login
-    events:
-      - http:
-          path: /login
-          method: post
   create:
     handler: create.create
     events:
@@ -61,19 +44,3 @@ functions:
       - http:
           path: /confirm
           method: post
-
-resources:
- Resources:
-   usersTable:
-     Type: AWS::DynamoDB::Table
-     Properties:
-       AttributeDefinitions:
-        - AttributeName: email
-          AttributeType: S
-       KeySchema:
-        - AttributeName: email
-          KeyType: HASH
-       ProvisionedThroughput:
-        ReadCapacityUnits: 1
-        WriteCapacityUnits: 1
-       TableName: ${self:provider.environment.DYNAMODB_TABLE}

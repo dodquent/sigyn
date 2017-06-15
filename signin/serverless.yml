@@ -14,3 +14,7 @@ provider:
 functions:
   signin:
     handler: signin.signin
+    events:
+      - http:
+          path: /
+          method: post
