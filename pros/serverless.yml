@@ -7,7 +7,7 @@ provider:
   timeout: 20
   environment:
     API_URL: "https://api.sigyn.io/"
-    COGNITO_ID: "4l0luscskuf56rqkeh7er7lje6"
+    COGNITO_ID: "1i0vofu2a37l35dj12d95lnr66"
   region: eu-west-1
   memorySize: 512
 

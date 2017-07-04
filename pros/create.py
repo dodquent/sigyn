@@ -26,7 +26,15 @@ def create(event, context):
                 {
                     'Name': 'email',
                     'Value': data['email']
-                }
+                },
+                {
+                    'Name': 'family_name',
+                    'Value': data['family_name']
+                },
+                {
+                    'Name': 'name',
+                    'Value': data['name']
+                },
             ]
         )
     except Exception as e:

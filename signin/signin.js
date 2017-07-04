@@ -40,7 +40,7 @@ module.exports.signin = (event, context, callback) => {
         onFailure: function(err) {
             console.log(err);
             const response = {
-                statusCode: 200,
+                statusCode: err.statusCode,
                 body: JSON.stringify({
                     message: err,
                     input: event,
